@@ -7,13 +7,45 @@ public class Pathfinder : MonoBehaviour
 {
     [SerializeField] Waypoint startWaypoint, endWaypoint;
     Dictionary<Vector2Int, Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
+    Queue<Waypoint> queue = new Queue<Waypoint>();
+
     Vector2Int[] directions = { Vector2Int.up , Vector2Int.right, Vector2Int.down, Vector2Int.left  };
+    bool isRunnig = true;
 
     private void Start()
     {
         LoadBlocks();
         ColorStartAndEnd();
-        ExploreNeighbours();
+        Pathfind();
+        //ExploreNeighbours();
+    }
+
+    private void Pathfind()
+    {
+        queue.Enqueue(startWaypoint);
+
+        while (queue.Count > 0)
+        {
+            var searchCenter = queue.Dequeue();
+            print("Search from: " + searchCenter);
+            HaltIfEndFound(searchCenter);
+
+           
+        }
+
+        print("Finished search?");
+
+
+    }
+
+    private void HaltIfEndFound(Waypoint searchCenter)
+    {
+        if (searchCenter == endWaypoint)
+        {
+            print("Same same");//remove if work
+            isRunnig = false;
+            return;
+        }
     }
 
     private void ExploreNeighbours()
