@@ -17,22 +17,23 @@ public class Pathfinder : MonoBehaviour
         LoadBlocks();
         ColorStartAndEnd();
         Pathfind();
-        //ExploreNeighbours();
     }
 
     private void Pathfind()
     {
         queue.Enqueue(startWaypoint);
 
-        while (queue.Count > 0)
+        while (queue.Count > 0 && isRunnig)
         {
-            var searchCenter = queue.Dequeue();
+            var searchCenter = queue.Dequeue(); 
             print("Search from: " + searchCenter);
             HaltIfEndFound(searchCenter);
+            ExploreNeighbours(searchCenter);
+            searchCenter.isExplored = true;
 
-           
         }
 
+        //todo work out path
         print("Finished search?");
 
 
@@ -42,22 +43,41 @@ public class Pathfinder : MonoBehaviour
     {
         if (searchCenter == endWaypoint)
         {
-            print("Same same");//remove if work
+            print("Serching from end node, therfore stopping");//remove if work
             isRunnig = false;
-            return;
+            
         }
     }
 
-    private void ExploreNeighbours()
+    private void ExploreNeighbours(Waypoint from)
     {
+        if (!isRunnig) { return; }
         foreach (Vector2Int direction in directions)
         {
-            Vector2Int explorationCoordinates = startWaypoint.GetGridPos() + direction;
+            Vector2Int neighbourCoordinates = from.GetGridPos() + direction;
             try
             {
-                grid[explorationCoordinates].SetTopColor(Color.blue);
+                QueueNewNeighbours(neighbourCoordinates);
             }
-            catch { }
+            catch
+            {
+                //do nothing
+            }
+        }
+    }
+
+    private void QueueNewNeighbours(Vector2Int neighbourCoordinates)
+    {
+        Waypoint neighbour = grid[neighbourCoordinates];
+        if (neighbour.isExplored)
+        {
+            //do nothing
+        }
+        else
+        {
+            neighbour.SetTopColor(Color.blue);//todo move later
+            queue.Enqueue(neighbour);
+            print("Queueing" + neighbour.name);
         }
     }
 
