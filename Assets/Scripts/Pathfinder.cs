@@ -7,7 +7,7 @@ public class Pathfinder : MonoBehaviour
 {
     [SerializeField] Waypoint startWaypoint, endWaypoint;
     Dictionary<Vector2Int, Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
-    Vector2Int[] directions = { Vector2Int.up , Vector2Int.down, Vector2Int.left, Vector2Int.right };
+    Vector2Int[] directions = { Vector2Int.up , Vector2Int.right, Vector2Int.down, Vector2Int.left  };
 
     private void Start()
     {
