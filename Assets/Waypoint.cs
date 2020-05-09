@@ -21,4 +21,9 @@ public class Waypoint : MonoBehaviour
         return new Vector2Int(x, y);
     }
 
+    public void SetTopColor(Color color)
+    {
+        MeshRenderer topMeshRenderer = transform.Find("Quad_Top").GetComponent<MeshRenderer>();
+        topMeshRenderer.material.color = color;
+    }
 }
