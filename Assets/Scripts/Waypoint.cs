@@ -32,14 +32,6 @@ public class Waypoint : MonoBehaviour
 
     private void Update()
     {
-        /*if (isExplored && (Pathfinder.startWaypoint) || ())
-        {
-            SetTopColor(Color.blue);
-        }
-
-        else
-        {
-            SetTopColor(Color.magenta);
-        }*/
+        
     }
 }

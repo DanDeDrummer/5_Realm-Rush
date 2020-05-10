@@ -8,20 +8,41 @@ public class Pathfinder : MonoBehaviour
     [SerializeField] Waypoint startWaypoint, endWaypoint;
     Dictionary<Vector2Int, Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
     Queue<Waypoint> queue = new Queue<Waypoint>();
+   List<Waypoint> path = new List<Waypoint>();
 
     Vector2Int[] directions = { Vector2Int.up , Vector2Int.right, Vector2Int.down, Vector2Int.left  };
 
     bool isRunnig = true;
     Waypoint searchCenter;
 
-    private void Start()
+    public List<Waypoint> GetPath()
     {
         LoadBlocks();
         ColorStartAndEnd();
-        Pathfind();
+        BreadthFirstSearch();
+        CreatePath();
+        return path;
     }
 
-    private void Pathfind()
+
+    private void CreatePath()
+    {
+        path.Add(endWaypoint);
+
+        Waypoint previous = endWaypoint.exploredFrom;
+        while (previous != startWaypoint)
+        {
+            path.Add(previous);
+            previous = previous.exploredFrom;
+        }
+
+        //add start waypoint
+        path.Add(startWaypoint);
+        //reverse list
+        path.Reverse();
+    }
+
+    private void BreadthFirstSearch()
     {
         queue.Enqueue(startWaypoint);
 
@@ -31,13 +52,7 @@ public class Pathfinder : MonoBehaviour
             HaltIfEndFound();
             ExploreNeighbours();
             searchCenter.isExplored = true;
-
         }
-
-        //todo work out path
-        print("Finished search?");
-
-
     }
 
     private void HaltIfEndFound()
@@ -56,13 +71,9 @@ public class Pathfinder : MonoBehaviour
         foreach (Vector2Int direction in directions)
         {
             Vector2Int neighbourCoordinates = searchCenter.GetGridPos() + direction;
-            try
+            if(grid.ContainsKey(neighbourCoordinates))
             {
                 QueueNewNeighbours(neighbourCoordinates);
-            }
-            catch
-            {
-                //do nothing
             }
         }
     }
