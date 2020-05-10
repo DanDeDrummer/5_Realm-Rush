@@ -5,6 +5,7 @@ using UnityEngine;
 public class Waypoint : MonoBehaviour
 {
     public bool isExplored = false;
+    public Waypoint exploredFrom;
 
     Vector2Int gridPos;
     const int gridSize = 10;
@@ -27,5 +28,18 @@ public class Waypoint : MonoBehaviour
     {
         MeshRenderer topMeshRenderer = transform.Find("Quad_Top").GetComponent<MeshRenderer>();
         topMeshRenderer.material.color = color;
+    }
+
+    private void Update()
+    {
+        /*if (isExplored && (Pathfinder.startWaypoint) || ())
+        {
+            SetTopColor(Color.blue);
+        }
+
+        else
+        {
+            SetTopColor(Color.magenta);
+        }*/
     }
 }

@@ -10,7 +10,9 @@ public class Pathfinder : MonoBehaviour
     Queue<Waypoint> queue = new Queue<Waypoint>();
 
     Vector2Int[] directions = { Vector2Int.up , Vector2Int.right, Vector2Int.down, Vector2Int.left  };
+
     bool isRunnig = true;
+    Waypoint searchCenter;
 
     private void Start()
     {
@@ -25,10 +27,9 @@ public class Pathfinder : MonoBehaviour
 
         while (queue.Count > 0 && isRunnig)
         {
-            var searchCenter = queue.Dequeue(); 
-            print("Search from: " + searchCenter);
-            HaltIfEndFound(searchCenter);
-            ExploreNeighbours(searchCenter);
+            searchCenter = queue.Dequeue(); 
+            HaltIfEndFound();
+            ExploreNeighbours();
             searchCenter.isExplored = true;
 
         }
@@ -39,7 +40,7 @@ public class Pathfinder : MonoBehaviour
 
     }
 
-    private void HaltIfEndFound(Waypoint searchCenter)
+    private void HaltIfEndFound()
     {
         if (searchCenter == endWaypoint)
         {
@@ -49,12 +50,12 @@ public class Pathfinder : MonoBehaviour
         }
     }
 
-    private void ExploreNeighbours(Waypoint from)
+    private void ExploreNeighbours()
     {
         if (!isRunnig) { return; }
         foreach (Vector2Int direction in directions)
         {
-            Vector2Int neighbourCoordinates = from.GetGridPos() + direction;
+            Vector2Int neighbourCoordinates = searchCenter.GetGridPos() + direction;
             try
             {
                 QueueNewNeighbours(neighbourCoordinates);
@@ -69,15 +70,14 @@ public class Pathfinder : MonoBehaviour
     private void QueueNewNeighbours(Vector2Int neighbourCoordinates)
     {
         Waypoint neighbour = grid[neighbourCoordinates];
-        if (neighbour.isExplored)
+        if (neighbour.isExplored || queue.Contains(neighbour))
         {
             //do nothing
         }
         else
-        {
-            neighbour.SetTopColor(Color.blue);//todo move later
+        {          
             queue.Enqueue(neighbour);
-            print("Queueing" + neighbour.name);
+            neighbour.exploredFrom = searchCenter;           
         }
     }
 
