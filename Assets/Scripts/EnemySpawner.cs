@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] float secondsBetweenSpawns = 5f;
+    [SerializeField] [Range(0.1f,120f)] float secondsBetweenSpawns = 5f;
     [SerializeField] EnemyMovement enemyPrefab;
     [SerializeField] int numberEnemiesInLevel = 0, maxNumberEnemiesInLevel = 3;
 
@@ -33,10 +33,8 @@ public class EnemySpawner : MonoBehaviour
         while (true)//forever
         {
             print("Spawning");
+            Instantiate(enemyPrefab, transform.position, Quaternion.identity);
             yield return new WaitForSeconds(secondsBetweenSpawns);
-            //Instantiate(enemyPrefab, gameObject.transform.position, Quaternion.identity);
-           // numberEnemiesInLevel++;
-            //print("number hostiles in level: " + numberEnemiesInLevel);
         }
 
     }
