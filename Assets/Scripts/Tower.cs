@@ -33,6 +33,8 @@ public class Tower : MonoBehaviour
         }
     }
 
+
+
     private void SetTargetEnemy()
     {
         var sceneEnemies = FindObjectsOfType<EnemyDamage>();

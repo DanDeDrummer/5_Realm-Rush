@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 2787230962729838211}
   - component: {fileID: 6041696942914019329}
   - component: {fileID: 4163119966743402119}
+  - component: {fileID: 2898901910423457290}
   m_Layer: 0
   m_Name: CubedQuads
   m_TagString: Untagged
@@ -155,6 +156,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isExplored: 0
   exploredFrom: {fileID: 0}
+--- !u!65 &2898901910423457290
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2787230962729838268}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: -5, z: 0}
 --- !u!1 &6644564833929029396
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,7 +248,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6644564833929029396}
-  m_Text: 4,2
+  m_Text: 0,0
   m_OffsetZ: 200
   m_CharacterSize: 2
   m_LineSpacing: 1

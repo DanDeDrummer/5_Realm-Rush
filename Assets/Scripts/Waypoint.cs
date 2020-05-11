@@ -11,6 +11,8 @@ public class Waypoint : MonoBehaviour
     const int gridSize = 10;
 
 
+
+
     public int GetGridSize()
     {
         return gridSize;
@@ -24,11 +26,16 @@ public class Waypoint : MonoBehaviour
         return new Vector2Int(x, y);
     }
 
-    public void SetTopColor(Color color)
+    void OnMouseOver()
     {
-        MeshRenderer topMeshRenderer = transform.Find("Quad_Top").GetComponent<MeshRenderer>();
-        topMeshRenderer.material.color = color;
+        Debug.Log("Mouse over " + gameObject.name);
     }
+
+    void OnMouseExit()
+    {
+        Debug.Log("Mouse  no longer over over " + gameObject.name);
+    }
+
 
     private void Update()
     {
