@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Waypoint : MonoBehaviour
 {
+    [SerializeField] Tower towerPrefab;
+
     public bool isExplored = false;
+    public bool isPlaceable = true;
     public Waypoint exploredFrom;
 
     Vector2Int gridPos;
@@ -28,13 +31,25 @@ public class Waypoint : MonoBehaviour
 
     void OnMouseOver()
     {
-        Debug.Log("Mouse over " + gameObject.name);
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            if (isPlaceable)
+            {
+                Instantiate(towerPrefab, transform.position, Quaternion.identity);
+                isPlaceable = false;
+                Debug.Log("Clicked on placeable block " + gameObject.name);              
+            }
+            else
+            {
+                Debug.Log("Can't place that here");
+            }
+
+
+
+        }
     }
 
-    void OnMouseExit()
-    {
-        Debug.Log("Mouse  no longer over over " + gameObject.name);
-    }
+   
 
 
     private void Update()

@@ -8,9 +8,9 @@ public class Pathfinder : MonoBehaviour
     [SerializeField] Waypoint startWaypoint, endWaypoint;
     Dictionary<Vector2Int, Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
     Queue<Waypoint> queue = new Queue<Waypoint>();
-   List<Waypoint> path = new List<Waypoint>();
+    List<Waypoint> path = new List<Waypoint>();
 
-    Vector2Int[] directions = { Vector2Int.up , Vector2Int.right, Vector2Int.down, Vector2Int.left  };
+    Vector2Int[] directions = { Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left };
 
     bool isRunnig = true;
     Waypoint searchCenter;
@@ -21,7 +21,7 @@ public class Pathfinder : MonoBehaviour
         {
             LoadBlocks();
             BreadthFirstSearch();
-            CreatePath();           
+            CreatePath();
         }
 
         return path;
@@ -30,20 +30,27 @@ public class Pathfinder : MonoBehaviour
 
     private void CreatePath()
     {
-        path.Add(endWaypoint);
+        SetAsPath(endWaypoint);
 
         Waypoint previous = endWaypoint.exploredFrom;
         while (previous != startWaypoint)
         {
-            path.Add(previous);
+            SetAsPath(previous);
             previous = previous.exploredFrom;
         }
 
         //add start waypoint
-        path.Add(startWaypoint);
+        SetAsPath(startWaypoint);
         //reverse list
         path.Reverse();
     }
+
+    private void SetAsPath(Waypoint waypoint)
+    {
+        path.Add(waypoint);
+        waypoint.isPlaceable = false;
+    } 
+
 
     private void BreadthFirstSearch()
     {
