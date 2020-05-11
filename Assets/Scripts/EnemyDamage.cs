@@ -9,6 +9,7 @@ public class EnemyDamage : MonoBehaviour
     [SerializeField] int hitpoints = 50;
     int damageDealt;
     Tower tower;
+    bool doDamage = true;
 
     private void Awake()
     {
@@ -18,16 +19,18 @@ public class EnemyDamage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Start hitpoints: " + hitpoints);
+
     }
 
 
     private void OnParticleCollision(GameObject other)
-    {
-        Debug.Log("Ow on collision by " + other.name);
+    {      
         damageDealt = tower.GetDamageDealt();
-        print(damageDealt);
-        TakeDamage(damageDealt);       
+        TakeDamage(damageDealt);
+        print("im shot");
+
+        
+
     }
 
     private void TakeDamage(int damageDealt)

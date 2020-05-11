@@ -7,16 +7,25 @@ public class Tower : MonoBehaviour
 {
     [SerializeField] Transform objectToPan;
     [SerializeField] Transform targetEnemy;
-
     [SerializeField] int damageDealt = 1;
-    bool isActive = false;
+    [SerializeField] float attackRange = 10f;
+    [SerializeField] ParticleSystem projectileParticle;
+
+   
 
     // Update is called once per frame
     void Update()
     {
-        LookAt();
-        isActive = !isActive;
-        //ShootEnemy(isActive);
+        if (targetEnemy)
+        {
+            LookAt();
+            ShootAtEnemy();
+        }
+
+        else
+        {
+            Shoot(false);
+        }
     }
 
     private void LookAt()
@@ -24,11 +33,26 @@ public class Tower : MonoBehaviour
         objectToPan.LookAt(targetEnemy);
     }
 
-    /*private void ShootEnemy(bool isActive)
+    private void ShootAtEnemy()
     {
-        var particleSystem = turret.GetComponent<ParticleSystem>().emission;
-        particleSystem.enabled = isActive;       
-    }*/
+        float distanceToEnemy = Vector3.Distance(targetEnemy.transform.position, gameObject.transform.position);
+
+        if (distanceToEnemy <= attackRange)
+        {
+            Shoot(true);
+        }
+        else
+        {
+            Shoot(false);
+        }
+  
+    }
+
+    private void Shoot(bool isActive)
+    {
+        var emissionModule = projectileParticle.emission;
+        emissionModule.enabled = isActive;
+    }
 
     public int GetDamageDealt()
     {
