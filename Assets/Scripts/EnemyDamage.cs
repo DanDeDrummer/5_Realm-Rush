@@ -27,10 +27,6 @@ public class EnemyDamage : MonoBehaviour
     {      
         damageDealt = tower.GetDamageDealt();
         TakeDamage(damageDealt);
-        print("im shot");
-
-        
-
     }
 
     private void TakeDamage(int damageDealt)
