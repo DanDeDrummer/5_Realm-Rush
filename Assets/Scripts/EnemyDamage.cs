@@ -8,9 +8,10 @@ public class EnemyDamage : MonoBehaviour
     [SerializeField] ParticleSystem hitParticlePrefab;
     [SerializeField] ParticleSystem deathParticlePrefab;
     [SerializeField] int hitpoints = 50;
+    int enemyDamage;
     
     Tower tower;
-    bool doDamage = true;
+    
 
     private void Awake()
     {
@@ -49,6 +50,12 @@ public class EnemyDamage : MonoBehaviour
         Destroy(deathParticle.gameObject, destroyDelay);
         Destroy(gameObject);
     }
+
+    public int GetEnemyDamage()
+    {
+        return enemyDamage;
+    }
+
 
     
 }
