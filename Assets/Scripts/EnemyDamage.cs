@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class EnemyDamage : MonoBehaviour
 {
-    [SerializeField] GameObject damageEffect;
+    [SerializeField] ParticleSystem hitParticlePrefab;
+    [SerializeField] ParticleSystem deathParticlePrefab;
     [SerializeField] int hitpoints = 50;
     int damageDealt;
     Tower tower;
@@ -32,7 +33,7 @@ public class EnemyDamage : MonoBehaviour
     private void TakeDamage(int damageDealt)
     {
         //Damege effect triggered
-        damageEffect.SetActive(true);
+        hitParticlePrefab.Play();
 
         //Lose Hitpoints
         hitpoints = hitpoints - damageDealt;
@@ -41,7 +42,11 @@ public class EnemyDamage : MonoBehaviour
         //die if hitpoints below 0
         if (hitpoints <= 0)
         {
-            Destroy(gameObject);
+
+            var deathParticle = Instantiate(deathParticlePrefab, transform.position, Quaternion.identity);
+            deathParticle.Play();
+            Destroy(deathParticle, 2f);
+            Destroy(gameObject);                      
         }
     }
 
