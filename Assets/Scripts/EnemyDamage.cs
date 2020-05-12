@@ -17,17 +17,12 @@ public class EnemyDamage : MonoBehaviour
         tower = FindObjectOfType<Tower>();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
 
     private void OnParticleCollision(GameObject other)
     {      
-        damageDealt = tower.GetDamageDealt();
+        damageDealt = 1; //tower.GetDamageDealt()
         TakeDamage(damageDealt);
+        print("Damage:" + damageDealt);
     }
 
     private void TakeDamage(int damageDealt)
@@ -42,10 +37,10 @@ public class EnemyDamage : MonoBehaviour
         //die if hitpoints below 0
         if (hitpoints <= 0)
         {
-
             var deathParticle = Instantiate(deathParticlePrefab, transform.position, Quaternion.identity);
             deathParticle.Play();
-            Destroy(deathParticle, 2f);
+            float destroyDelay = deathParticle.main.duration;
+            Destroy(deathParticle.gameObject, destroyDelay);
             Destroy(gameObject);                      
         }
     }
