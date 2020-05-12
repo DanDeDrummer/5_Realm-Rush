@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Waypoint : MonoBehaviour
-{
-    [SerializeField] Tower towerPrefab;
+{    
 
     public bool isExplored = false;
     public bool isPlaceable = true;
@@ -35,14 +34,14 @@ public class Waypoint : MonoBehaviour
         {
             if (isPlaceable)
             {
-                Instantiate(towerPrefab, transform.position, Quaternion.identity);
-                isPlaceable = false;
-                Debug.Log("Clicked on placeable block " + gameObject.name);              
+                FindObjectOfType<TowerFactory>().AddTower(this); //this = the Waypoint we clicked on
             }
             else
             {
                 Debug.Log("Can't place that here");
             }
+
+
 
 
 
