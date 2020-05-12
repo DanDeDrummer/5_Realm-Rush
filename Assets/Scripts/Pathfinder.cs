@@ -68,10 +68,8 @@ public class Pathfinder : MonoBehaviour
     private void HaltIfEndFound()
     {
         if (searchCenter == endWaypoint)
-        {
-            print("Serching from end node, therfore stopping");//remove if work
-            isRunnig = false;
-            
+        {          
+            isRunnig = false;   
         }
     }
 
