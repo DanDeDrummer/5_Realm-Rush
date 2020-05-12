@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
-{    
-    
+{
+    [SerializeField] float movementSpeed = .5f;
+    [SerializeField] ParticleSystem goalParticlePrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,10 +22,19 @@ public class EnemyMovement : MonoBehaviour
         foreach (Waypoint waypoint in path)
         {  
             transform.position = waypoint.transform.position;
-            yield return new WaitForSeconds(2f); 
+            yield return new WaitForSeconds(movementSpeed); 
         }
-        print("Ending Patrol");
+        DamageBase();
     }
 
-    
+    private void DamageBase()
+    {
+        var goalParticle = Instantiate(goalParticlePrefab, transform.position, Quaternion.identity);
+        goalParticle.Play();
+        float destroyDelay = goalParticle.main.duration;
+        Destroy(goalParticle.gameObject, destroyDelay);
+        Destroy(gameObject);
+    }
+
+
 }

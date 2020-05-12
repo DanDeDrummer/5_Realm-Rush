@@ -8,7 +8,7 @@ public class EnemyDamage : MonoBehaviour
     [SerializeField] ParticleSystem hitParticlePrefab;
     [SerializeField] ParticleSystem deathParticlePrefab;
     [SerializeField] int hitpoints = 50;
-    int damageDealt;
+    
     Tower tower;
     bool doDamage = true;
 
@@ -19,9 +19,15 @@ public class EnemyDamage : MonoBehaviour
 
 
     private void OnParticleCollision(GameObject other)
-    {      
-        damageDealt = 1; //tower.GetDamageDealt()
+    {
+        int damageDealt = 1;  
         TakeDamage(damageDealt);
+
+        //die if hitpoints below 0
+        if (hitpoints <= 0)
+        {
+            KillEnemy();
+        }
         print("Damage:" + damageDealt);
     }
 
@@ -33,21 +39,16 @@ public class EnemyDamage : MonoBehaviour
         //Lose Hitpoints
         hitpoints = hitpoints - damageDealt;
         
-
-        //die if hitpoints below 0
-        if (hitpoints <= 0)
-        {
-            var deathParticle = Instantiate(deathParticlePrefab, transform.position, Quaternion.identity);
-            deathParticle.Play();
-            float destroyDelay = deathParticle.main.duration;
-            Destroy(deathParticle.gameObject, destroyDelay);
-            Destroy(gameObject);                      
-        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void KillEnemy()
     {
-        
+        var deathParticle = Instantiate(deathParticlePrefab, transform.position, Quaternion.identity);
+        deathParticle.Play();
+        float destroyDelay = deathParticle.main.duration;
+        Destroy(deathParticle.gameObject, destroyDelay);
+        Destroy(gameObject);
     }
+
+    
 }
