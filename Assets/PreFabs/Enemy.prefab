@@ -82,7 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitParticlePrefab: {fileID: 6359467313477015205}
   deathParticlePrefab: {fileID: 4991386371731858126}
-  hitpoints: 3
+  hitpoints: 2
   enemyHitSFX: {fileID: 8300000, guid: 6679cb34f3cf8c449b8d699c266665d5, type: 3}
   enemyDeathSFX: {fileID: 8300000, guid: efe0a8dc003b6a943a34a82d84ca3883, type: 3}
 --- !u!82 &8469506328719389019

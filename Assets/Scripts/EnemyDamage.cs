@@ -10,16 +10,19 @@ public class EnemyDamage : MonoBehaviour
     [SerializeField] int hitpoints = 50;
     [SerializeField] AudioClip enemyHitSFX;
     [SerializeField] AudioClip enemyDeathSFX;
+    
     int enemyDamage;
     
     Tower tower;
     AudioSource myAudioSource;
-    
+
+
 
     private void Awake()
     {
         tower = FindObjectOfType<Tower>();
         myAudioSource = GetComponent<AudioSource>();
+
     }
 
 
@@ -50,9 +53,9 @@ public class EnemyDamage : MonoBehaviour
     {
         var deathParticle = Instantiate(deathParticlePrefab, transform.position, Quaternion.identity);
         deathParticle.Play();
-        //myAudioSource().PlayOneShot(killedEnemy);
         float destroyDelay = deathParticle.main.duration;
         Destroy(deathParticle.gameObject, destroyDelay);
+        AudioSource.PlayClipAtPoint(enemyDeathSFX, Camera.main.transform.position);
         Destroy(gameObject);
     }
 
