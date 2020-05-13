@@ -10,6 +10,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] int numberEnemiesInLevel = 0, maxNumberEnemiesInLevel = 3;
     [SerializeField] Transform enemyParentTransform;
     [SerializeField] Text enemyCounter;
+    [SerializeField] AudioClip spawnEnemySFX;
 
     // Start is called before the first frame update
     void Start()
@@ -32,12 +33,18 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)//forever
         {
+            IncreaseEnemyCounter();
+            GetComponent<AudioSource>().PlayOneShot(spawnEnemySFX);
             var newEnemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
             newEnemy.transform.parent = enemyParentTransform;
-            numberEnemiesInLevel++;
-            enemyCounter.text = "Enemies: " + numberEnemiesInLevel.ToString();
             yield return new WaitForSeconds(secondsBetweenSpawns);
         }
 
+    }
+
+    private void IncreaseEnemyCounter()
+    {
+        numberEnemiesInLevel++;
+        enemyCounter.text = "Enemies: " + numberEnemiesInLevel.ToString();
     }
 }

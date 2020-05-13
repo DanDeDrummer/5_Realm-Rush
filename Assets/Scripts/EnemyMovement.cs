@@ -7,6 +7,7 @@ public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] float movementSpeed = .5f;
     [SerializeField] ParticleSystem goalParticlePrefab;
+    
 
     // Start is called before the first frame update
     void Start()
