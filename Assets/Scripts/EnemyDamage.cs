@@ -28,7 +28,8 @@ public class EnemyDamage : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        int damageDealt = 1;  
+        int damageDealt = other.GetComponentInParent<Tower>().GetDamageDealt();
+        
         TakeDamage(damageDealt);
 
         //die if hitpoints below 0
